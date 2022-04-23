@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import config from "../config";
+import config from "../shared/config";
 
 const loginRouter = express.Router();
 

@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import config from './config';
+import config from './shared/config';
 import swaggerUi from 'swagger-ui-express';
-import * as database from './database';
+import * as database from './shared/database';
 import { errorHandler } from './middleware';
 import loginRouter from './routes/loginRouter';
 import authRouter from './routes/authRouter';
@@ -26,6 +26,6 @@ app.get("/", (req, res) => res.send("studybot auth server"));
 app.use(errorHandler);
 
 // Start server
-app.listen(config.port, () => {
-    console.log(`Server is running on port ${config.port}`);
+app.listen(config.authServerPort, () => {
+    console.log(`Server is running on port ${config.authServerPort}`);
 });

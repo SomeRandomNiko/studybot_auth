@@ -1,10 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
-import config from "../config";
-import { createUser, disconnectDigreg, getUser, setDigregTokens, setDiscordTokens } from "../database";
-import { getDiscordOAuthTokens, getDiscordUserData } from "../discord";
+import config from "../shared/config";
+import { createUser, disconnectDigreg, getUser, setDigregTokens, setDiscordTokens } from "../shared/database";
+import { getDiscordOAuthTokens, getDiscordUserData } from "../shared/discord";
 import jwt from "jsonwebtoken";
 import { AxiosError } from "axios";
-import { getDigregOAuthTokens } from "../digreg";
+import { getDigregOAuthTokens } from "../shared/digreg";
 import { requireLogin } from "../middleware";
 
 const authRouter = express.Router();
