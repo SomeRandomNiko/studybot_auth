@@ -48,7 +48,7 @@ const UserSchema = new mongoose.Schema<DB.User>({
     discordRefreshToken: { type: String, required: true },
     discordTokenExpires: { type: Date, required: true },
     digregConnected: { type: Boolean, required: true },
-    digregId: { type: Number, required: false, unique: true },
+    digregId: { type: Number, required: false },
     digregAccessToken: { type: String, required: false },
     digregRefreshToken: { type: String, required: false },
     digregTokenExpires: { type: Date, required: false },
