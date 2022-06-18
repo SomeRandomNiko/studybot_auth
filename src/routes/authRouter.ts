@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import config from "../shared/config";
 import { createUser, disconnectDigreg, getUser, setDigregTokens } from "../shared/database";
-import { getDiscordOAuthTokens, getDiscordUserData } from "../shared/discord";
+import { getDiscordOAuthTokens, getDiscordUserData, getDiscordUserDataByToken } from "../shared/discord";
 import jwt from "jsonwebtoken";
 import { AxiosError } from "axios";
 import { getDigregOAuthTokens } from "../shared/digreg";
@@ -25,7 +25,7 @@ async function discordOAuthCallback(req: Request, res: Response, next: NextFunct
     if (!tokens)
         return next({ status: 500, message: "Could not get discord tokens" });
 
-    const discordUser = await getDiscordUserData(tokens.access_token).catch(() => next({ status: 500, message: "Could not get Tokens from Discord API" }));
+    const discordUser = await getDiscordUserDataByToken(tokens.access_token).catch(() => next({ status: 500, message: "Could not get Tokens from Discord API" }));
 
     if (!discordUser)
         return next({ status: 500, message: "Could not get discord user data" });
