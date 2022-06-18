@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import config from "../shared/config";
-import { createUser, disconnectDigreg, getUser, setDigregTokens, setDiscordTokens } from "../shared/database";
+import { createUser, disconnectDigreg, getUser, setDigregTokens } from "../shared/database";
 import { getDiscordOAuthTokens, getDiscordUserData } from "../shared/discord";
 import jwt from "jsonwebtoken";
 import { AxiosError } from "axios";
@@ -33,9 +33,7 @@ async function discordOAuthCallback(req: Request, res: Response, next: NextFunct
     let dbUser = await getUser(discordUser.id);
 
     if (!dbUser)
-        dbUser = await createUser(discordUser.id, tokens.access_token, tokens.refresh_token, new Date(Date.now() + 1000 * tokens.expires_in));
-    else
-        await setDiscordTokens(dbUser.id, tokens.access_token, tokens.refresh_token, new Date(Date.now() + 1000 * tokens.expires_in));
+        dbUser = await createUser(discordUser.id);
 
     // create a jwt with the discordId in the payload
     const token = jwt.sign({ discordId: discordUser.id }, config.jwtSecret, { expiresIn: config.jwtExpiration });
